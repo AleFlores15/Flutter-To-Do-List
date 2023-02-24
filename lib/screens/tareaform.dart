@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_to_do_list/screens/tareas.dart';
 import 'package:flutter_to_do_list/screens/etiqueta.dart';
 
 class FormularioTarea extends StatefulWidget {
-  const FormularioTarea({super.key});
+  const FormularioTarea({Key? key}) : super(key: key);
   static final namePage = "formulario";
 
   @override
-  State<FormularioTarea> createState() => _FormularioTareaState();
+  _FormularioTareaState createState() => _FormularioTareaState();
 }
 
 class _FormularioTareaState extends State<FormularioTarea> {
-  final idForm=GlobalKey<FormState>();
-  Map<String,dynamic> newTarea={};
+  final idForm = GlobalKey<FormState>();
+  Map<String, dynamic> newTarea = {};
+  DateTime selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,42 +30,76 @@ class _FormularioTareaState extends State<FormularioTarea> {
             child: Column(
               children: [
                 TextFormField(
-                  onSaved: (valor){
-                    newTarea['Nombre']=valor;
-
-                  } ,
+                  onSaved: (valor) {
+                    newTarea['Nombre'] = valor;
+                  },
                   decoration: InputDecoration(
-                    hintText: "Titulo de la tarea"
-                    
+                    hintText: "Titulo de la tarea",
+                  ),
+                ),
+                SizedBox(height: 20),
+                
+                
+                ElevatedButton(
+                  onPressed: () {
+                    DatePicker.showDatePicker(
+                      context,
+                      showTitleActions: true,
+                      minTime: DateTime.now(),
+                      maxTime: DateTime(2100, 12, 31),
+                      onConfirm: (date) {
+                        setState(() {
+                          selectedDate = date;
+                        });
+                      },
+                      currentTime: selectedDate,
+                      locale: LocaleType.es,
+                    );
+                  },
+                  child: Text(
+                    'Seleccionar fecha',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  onSaved: (valor){
-                    newTarea['Descripcion']=valor;
-
-                  } ,
-                  maxLines: null,
+                  onSaved: (valor) {
+                    newTarea['Nombre'] = valor;
+                  },
+                  initialValue: 'Fecha seleccionada: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
                   decoration: InputDecoration(
-                    hintText: "Descripcion de la tarea"
-                    
+                    hintText: "Titulo de la tarea",
                   ),
+                )
+                ,
+                Text(
+                  'Fecha seleccionada: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
                 ),
-                ElevatedButton(onPressed:(){
-                  idForm.currentState?.save();
-                  newTarea['Estado']="pendiente";
-                  Tareas().agrega(newTarea);
-                  Navigator.pop(context);
-                }, child:Text("Añadir tarea") ),
-                ElevatedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => FormularioEtiqueta() ));} ,child: Text("Gestionar", style: TextStyle(fontSize: 20))),
-                SizedBox(height:15),
-
+                ElevatedButton(
+                  onPressed: () {
+                    idForm.currentState?.save();
+                    newTarea['Estado'] = "pendiente";
+                    newTarea['Fecha'] =
+                        '${selectedDate.year}-${selectedDate.month}-${selectedDate.day}';
+                    Tareas().agrega(newTarea);
+                    Navigator.pop(context);
+                  },
+                  child: Text("Añadir tarea"),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FormularioEtiqueta()));
+                    },
+                    child: Text("Gestionar", style: TextStyle(fontSize: 20))),
+                SizedBox(height: 15),
               ],
             ),
           ),
         ),
-      ) ,
+      ),
     );
   }
 }
