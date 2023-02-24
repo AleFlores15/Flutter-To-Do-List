@@ -12,7 +12,7 @@ class FormularioEtiqueta extends StatefulWidget {
 
 class _FormularioEtiquetaState extends State<FormularioEtiqueta> {
   final idForm=GlobalKey<FormState>();
-  Map<String,dynamic> newLabel={};
+  Map<dynamic,dynamic> newLabel={};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class _FormularioEtiquetaState extends State<FormularioEtiqueta> {
         ):Center(child: Text("No hay etiqueta"),),
         floatingActionButton: FloatingActionButton(
           onPressed: ()  { setState(() {
-            etiqueta.add("a"); print(etiqueta.length);
+            etiqueta.add(""); print(etiqueta.length);
           });  
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context )=>FormularioEtiqueta()));
           },
@@ -40,9 +40,11 @@ class _FormularioEtiquetaState extends State<FormularioEtiqueta> {
           
           Widget item= TextFormField(
                   onSaved: (valor){
+                     newLabel['Nombre']=valor;
                   } ,
+                  initialValue: a,
                   decoration: InputDecoration(
-                    hintText: "Titulo de la tarea"        
+                    hintText: "Nombre de la etiqueta"        
                   ),
                 );
           temp.add(item);
