@@ -32,8 +32,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
 
                   } ,
                   decoration: InputDecoration(
-                    hintText: "Titulo de la tarea"
-                    
+                    hintText: "Titulo de la tarea"        
                   ),
                 ),
                 SizedBox(height: 20),
