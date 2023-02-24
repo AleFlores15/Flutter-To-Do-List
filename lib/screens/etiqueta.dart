@@ -15,22 +15,38 @@ class _FormularioEtiquetaState extends State<FormularioEtiqueta> {
   Map<dynamic,dynamic> newLabel={};
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Gestionar etiquetas'),
-      ),
-      body: (etiqueta.isNotEmpty)? ListView(
+return Scaffold(
+  appBar: AppBar(
+    title: Text('Gestionar etiquetas'),
+  ),
+  body: (etiqueta.isNotEmpty)
+      ? ListView(
           children: _crearTarea(),
-        ):Center(child: Text("No hay etiqueta"),),
-        floatingActionButton: FloatingActionButton(
-          onPressed: ()  { setState(() {
-            etiqueta.add(""); print(etiqueta.length);
-          });  
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context )=>FormularioEtiqueta()));
-          },
-          child: Icon(Icons.add),),
+          physics: BouncingScrollPhysics(),
+        )
+      : Center(child: Text("No hay etiqueta")),
+  floatingActionButton: FloatingActionButton(
+    onPressed: () {
+      setState(() {
+        etiqueta.add("");
+        print(etiqueta.length);
+      });
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => FormularioEtiqueta()));
+    },
+    child: Icon(Icons.add),
+  ),
+  bottomNavigationBar: Container(
+    padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+    child: ElevatedButton(
+      onPressed: () {
+        // TODO: handle button press
+      },
+      child: Text('Guardar'),
+    ),
+  ),
+);
 
-    );
   }
 
     List<Widget> _crearTarea() {
