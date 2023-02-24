@@ -50,26 +50,36 @@ return Scaffold(
   }
 
     List<Widget> _crearTarea() {
-    List<Widget> temp= [];
+  List<Widget> temp = [];
 
-        for (String a in etiqueta) {
-          
-          Widget item= TextFormField(
-                  onSaved: (valor){
-                     newLabel['Nombre']=valor;
-                  } ,
-                  initialValue: a,
-                  decoration: InputDecoration(
-                    hintText: "Nombre de la etiqueta"        
-                  ),
-                );
-          temp.add(item);
-        }
-    
-        
-  
-    return temp;
+  for (int i = 0; i < etiqueta.length; i++) {
+    Widget item = Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            onSaved: (valor) {
+              newLabel['Nombre'] = valor;
+            },
+            initialValue: etiqueta[i],
+            decoration: InputDecoration(hintText: "Nombre de la etiqueta"),
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            setState(() {
+              etiqueta.removeAt(i);
+            });
+          },
+        ),
+      ],
+    );
+    temp.add(item);
   }
+
+  return temp;
+}
+
  void agrega() {
     print(etiqueta.length);
     etiqueta.add("a");
