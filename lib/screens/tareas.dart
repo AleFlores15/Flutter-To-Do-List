@@ -2,6 +2,27 @@ import 'package:flutter/material.dart';
 
 class Tareas extends StatelessWidget {
   static final pageName= "tareas";
+  static final List<Map<String,dynamic>> tareas =[
+    {
+      'Nombre': 'Pedro',
+      'Descripcion':'Tarea Flutter',
+      'Fecha':'12/12/12',
+      'Estado':'equis de'
+    },
+    {
+      'Nombre': 'Pedro',
+      'Descripcion':'Tarea Flutter',
+      'Fecha':'12/12/12',
+      'Estado':'equis de'
+    },
+    {
+      'Nombre': 'Pedro',
+      'Descripcion':'Tarea Flutter',
+      'Fecha':'12/12/12',
+      'Estado':'equis de'
+    }
+
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,9 +40,9 @@ class Tareas extends StatelessWidget {
   
   List<Widget> _crearTarea() {
     List<Widget> temp= [];
-    for (var i = 0; i < 5; i++) {
+    for (Map<String, dynamic> a in tareas) {
       Widget item= ListTile(
-        title: Text("Hola ${i+1}"),
+        title: Text("Hola ${a['Nombre']}"),
       );
       temp.add(item);
     }
