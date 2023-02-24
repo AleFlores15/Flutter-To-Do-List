@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/screens/tareas.dart';
-List<String> etiqueta  =[];
+List<String> etiqueta  =['Algo','ALGO2','ALGO3'];
 class FormularioEtiqueta extends StatefulWidget {
   const FormularioEtiqueta({super.key});
   static final namePage = "formulario";
