@@ -8,7 +8,7 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("To do list"),
+        title: Text("TODO APP"),
       ),
       body: Container(
         
@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
               child: ListView(
                 children: [
                   Image.asset("images/Inicio.png", height: 100, width: 100,),
-                  Text("Bienvenido a la Aplicacion", style: TextStyle(fontSize: 30),textAlign: TextAlign.center),
+                  Text("Bienvenido a\nTODO APP", style: TextStyle(fontSize: 30),textAlign: TextAlign.center),
                   SizedBox( height: 50,),
                   Container(
                     padding: EdgeInsets.all(8.0),
@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height:15),
                   ElevatedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen() ));} ,child: Text("Login", style: TextStyle(fontSize: 20))),
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen() ));} ,child: Text("Ingresar", style: TextStyle(fontSize: 20))),
                   SizedBox(height:15),
                   Row(
                     

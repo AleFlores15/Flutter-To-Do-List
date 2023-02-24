@@ -32,7 +32,8 @@ class _FormularioTareaState extends State<FormularioTarea> {
 
                   } ,
                   decoration: InputDecoration(
-                    hintText: "Titulo de la tarea"        
+                    hintText: "Titulo de la tarea"
+                    
                   ),
                 ),
                 SizedBox(height: 20),
@@ -54,7 +55,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                   Navigator.pop(context);
                 }, child:Text("Añadir tarea") ),
                 ElevatedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => FormularioEtiqueta() ));} ,child: Text("Gestionar Etiquetas", style: TextStyle(fontSize: 20))),
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => FormularioEtiqueta() ));} ,child: Text("Gestionar", style: TextStyle(fontSize: 20))),
                 SizedBox(height:15),
 
               ],
