@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/screens/tareas.dart';
-import 'package:flutter_to_do_list/screens/etiqueta.dart';
 
-class FormularioTarea extends StatefulWidget {
-  const FormularioTarea({super.key});
+class FormularioEtiqueta extends StatefulWidget {
+  const FormularioEtiqueta({super.key});
   static final namePage = "formulario";
 
   @override
-  State<FormularioTarea> createState() => _FormularioTareaState();
+  State<FormularioEtiqueta> createState() => _FormularioEtiquetaState();
 }
 
-class _FormularioTareaState extends State<FormularioTarea> {
+class _FormularioEtiquetaState extends State<FormularioEtiqueta> {
   final idForm=GlobalKey<FormState>();
-  Map<String,dynamic> newTarea={};
+  Map<String,dynamic> newLabel={};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Añadir tarea nueva'),
+        title: Text('Gestionar etiquetas'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -28,7 +27,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
               children: [
                 TextFormField(
                   onSaved: (valor){
-                    newTarea['Nombre']=valor;
+                    newLabel['Nombre']=valor;
 
                   } ,
                   decoration: InputDecoration(
@@ -39,7 +38,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                 SizedBox(height: 20),
                 TextFormField(
                   onSaved: (valor){
-                    newTarea['Descripcion']=valor;
+                    newLabel['Descripcion']=valor;
 
                   } ,
                   maxLines: null,
@@ -50,14 +49,10 @@ class _FormularioTareaState extends State<FormularioTarea> {
                 ),
                 ElevatedButton(onPressed:(){
                   idForm.currentState?.save();
-                  newTarea['Estado']="pendiente";
-                  Tareas().agrega(newTarea);
+                  newLabel['Estado']="pendiente";
+                  Tareas().agrega(newLabel);
                   Navigator.pop(context);
-                }, child:Text("Añadir tarea") ),
-                ElevatedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => FormularioEtiqueta() ));} ,child: Text("Gestionar Etiquetas", style: TextStyle(fontSize: 20))),
-                SizedBox(height:15),
-
+                }, child:Text("Añadir tarea") )
               ],
             ),
           ),
