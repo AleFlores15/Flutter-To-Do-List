@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do_list/screens/tareaform.dart';
 
 class Tareas extends StatelessWidget {
   static final pageName= "tareas";
@@ -19,7 +20,7 @@ class Tareas extends StatelessWidget {
           children: _crearTarea(),
         ):Center(child: Text("No hay tareas"),),
         floatingActionButton: FloatingActionButton(
-          onPressed: ()=>{},
+          onPressed: ()=>{Navigator.pushNamed(context, FormularioTarea.namePage )},
           child: Icon(Icons.add),),
       ),
     );
