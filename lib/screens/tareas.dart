@@ -7,19 +7,19 @@ class Tareas extends StatelessWidget {
       'Nombre': 'Pedro',
       'Descripcion':'Tarea Flutter',
       'Fecha':'12/12/12',
-      'Estado':'equis de'
+      'Estado':false
     },
     {
       'Nombre': 'Pedro',
       'Descripcion':'Tarea Flutter',
       'Fecha':'12/12/12',
-      'Estado':'equis de'
+      'Estado':true
     },
     {
       'Nombre': 'Pedro',
       'Descripcion':'Tarea Flutter',
       'Fecha':'12/12/12',
-      'Estado':'equis de'
+      'Estado':true
     }
 
   ];
@@ -43,6 +43,7 @@ class Tareas extends StatelessWidget {
     for (Map<String, dynamic> a in tareas) {
       Widget item= ListTile(
         title: Text("Hola ${a['Nombre']}"),
+        trailing: (a['Estado']? Text("Completado") : Text("Incompleto")),
       );
       temp.add(item);
     }
