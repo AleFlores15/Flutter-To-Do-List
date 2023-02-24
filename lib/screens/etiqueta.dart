@@ -38,7 +38,13 @@ class _FormularioEtiquetaState extends State<FormularioEtiqueta> {
 
         for (String a in etiqueta) {
           
-          Widget item= Container(child: Text("as"),);
+          Widget item= TextFormField(
+                  onSaved: (valor){
+                  } ,
+                  decoration: InputDecoration(
+                    hintText: "Titulo de la tarea"        
+                  ),
+                );
           temp.add(item);
         }
     
