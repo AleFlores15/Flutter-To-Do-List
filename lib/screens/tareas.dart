@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/screens/tareaform.dart';
 
-  List<Map<String,dynamic>> tareas =[{
-    'Nombre': 'a',
-    'Estado': true
-  }];
+  List<Map<String,dynamic>> tareas =[];
 class Tareas extends StatelessWidget {
   static final pageName= "tareas";
 
@@ -29,13 +26,22 @@ class Tareas extends StatelessWidget {
   
   List<Widget> _crearTarea() {
     List<Widget> temp= [];
-    for (Map<String, dynamic> a in tareas) {
-      Widget item= ListTile(
-        title: Text("Hola ${a['Nombre']}"),
-        trailing: (a['Estado'])? Text("Completado") : Text("Incompleto"),
-      );
-      temp.add(item);
-    }
+    
+      //tareas.clear();
+        print("${tareas.length} aaaa");
+        print(tareas[0]);
+        for (Map<String, dynamic> a in tareas) {
+          print(tareas.length);
+          Widget item= ListTile(
+            title: Text("${a['Nombre']}"), 
+            subtitle: Text("${a['Descripcion']}\nhola"),
+            trailing:  Text("${a['Estado']}"),
+          );
+          temp.add(item);
+        }
+    
+        
+  
     return temp;
   }
   void agrega(Map<String,dynamic> value){

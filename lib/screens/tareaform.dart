@@ -49,7 +49,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                 ),
                 ElevatedButton(onPressed:(){
                   idForm.currentState?.save();
-                  newTarea['Estado']=false;
+                  newTarea['Estado']="pendiente";
                   Tareas().agrega(newTarea);
                   Navigator.pop(context);
                 }, child:Text("Añadir tarea") )
