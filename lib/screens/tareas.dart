@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/screens/tareaform.dart';
 
+  List<Map<String,dynamic>> tareas =[{
+    'Nombre': 'a',
+    'Estado': true
+  }];
 class Tareas extends StatelessWidget {
   static final pageName= "tareas";
-  static final List<Map<String,dynamic>> tareas =[
- 
 
-
-  ];
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,4 +38,10 @@ class Tareas extends StatelessWidget {
     }
     return temp;
   }
-}
+  void agrega(Map<String,dynamic> value){
+    tareas.add(value);
+     print(value['Nombre']);
+  }
+} 
+
+
