@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<String> etiqueta = ['Algo', 'ALGO2', 'ALGO3'];
+List<String> etiqueta = ['Trabajo', 'Casa', 'Personal'];
 
 class FormularioEtiqueta extends StatefulWidget {
   const FormularioEtiqueta({Key? key}) : super(key: key);
