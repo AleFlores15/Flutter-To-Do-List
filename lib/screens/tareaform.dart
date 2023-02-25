@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_to_do_list/screens/tareas.dart';
 import 'package:flutter_to_do_list/screens/etiqueta.dart';
-String dropdownValue = 'One';
+
 class FormularioTarea extends StatefulWidget {
   const FormularioTarea({Key? key}) : super(key: key);
   static final namePage = "formulario";
@@ -16,6 +16,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
   Map<String, dynamic> newTarea = {};
   DateTime selectedDate = DateTime.now();
   String dateText = '';
+  String selected = '';
 
   @override
   void initState() {
@@ -36,24 +37,17 @@ class _FormularioTareaState extends State<FormularioTarea> {
             key: idForm,
             child: Column(
               children: [
-                Text("Nombre de la tarea: ")
-                ,
-                SizedBox(height: 20,)
-                ,
                 TextFormField(
                   onSaved: (valor) {
                     newTarea['Nombre'] = valor;
                   },
                   decoration: InputDecoration(
-                    hintText: "Nombre de la tarea",
+                    hintText: "Titulo de la tarea",
                   ),
                 ),
                 SizedBox(height: 20),
-                Text("Fecha de Cumplimiento: ")
-                ,
                 Row(
                   children: [
-                    
                     Expanded(
                       child: TextFormField(
                         onSaved: (valor) {
@@ -93,27 +87,24 @@ class _FormularioTareaState extends State<FormularioTarea> {
                     ),
                   ],
                 ),
-                SizedBox(height: 25),
-                Text("Etiqueta: ")
-                ,
-
-
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                    });
-                  },
-                  items: <String>['One', 'Two', 'Three', 'Four']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-               SizedBox(height: 45),  
+                SizedBox(height: 20),
+                
+                 DropdownButton<String>(
+                     
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selected=newValue!;
+                        });
+                      },
+                      items: <String>['Alta', 'Media', 'Baja']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                  ),
+                
                 ElevatedButton(
                   onPressed: () {
                     idForm.currentState?.save();
@@ -123,7 +114,6 @@ class _FormularioTareaState extends State<FormularioTarea> {
                   },
                   child: Text("Añadir tarea"),
                 ),
-                 SizedBox(height: 15),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -131,7 +121,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                           MaterialPageRoute(
                               builder: (context) => FormularioEtiqueta()));
                     },
-                    child: Text("Gestionar etiquetas", style: TextStyle(fontSize: 14))),
+                    child: Text("Gestionar etiquetas", style: TextStyle(fontSize: 20))),
                 SizedBox(height: 15),
               ],
             ),
