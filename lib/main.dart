@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Color(0Xff00B0FF), useMaterial3: true
+        primaryColor: Color(0Xff00B0FF)
       ),
       home: LoginScreen(),
 
