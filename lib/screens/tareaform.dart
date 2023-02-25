@@ -94,9 +94,10 @@ class _FormularioTareaState extends State<FormularioTarea> {
                       onChanged: (String? newValue) {
                         setState(() {
                           selected=newValue!;
+                          newTarea['Etiq']=newValue;
                         });
                       },
-                      items: <String>['Alta', 'Media', 'Baja']
+                      items: etiqueta
                           .map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
@@ -114,6 +115,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                   },
                   child: Text("Añadir tarea"),
                 ),
+                
                 ElevatedButton(
                     onPressed: () {
                       Navigator.push(
