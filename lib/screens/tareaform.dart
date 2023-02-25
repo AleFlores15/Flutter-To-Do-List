@@ -45,7 +45,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                     newTarea['Nombre'] = valor;
                   },
                   decoration: InputDecoration(
-                    hintText: "Titulo de la tarea",
+                    hintText: "Nombre de la tarea",
                   ),
                 ),
                 SizedBox(height: 20),
@@ -93,7 +93,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 25),
                 Text("Etiqueta: ")
                 ,
 
@@ -113,8 +113,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                     );
                   }).toList(),
                 ),
-                
-                
+               SizedBox(height: 45),  
                 ElevatedButton(
                   onPressed: () {
                     idForm.currentState?.save();
@@ -124,6 +123,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                   },
                   child: Text("Añadir tarea"),
                 ),
+                 SizedBox(height: 15),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -131,7 +131,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                           MaterialPageRoute(
                               builder: (context) => FormularioEtiqueta()));
                     },
-                    child: Text("Gestionar etiquetas", style: TextStyle(fontSize: 20))),
+                    child: Text("Gestionar etiquetas", style: TextStyle(fontSize: 14))),
                 SizedBox(height: 15),
               ],
             ),
