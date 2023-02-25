@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_to_do_list/screens/tareas.dart';
 import 'package:flutter_to_do_list/screens/etiqueta.dart';
-
+String dropdownValue = 'One';
 class FormularioTarea extends StatefulWidget {
   const FormularioTarea({Key? key}) : super(key: key);
   static final namePage = "formulario";
@@ -36,6 +36,10 @@ class _FormularioTareaState extends State<FormularioTarea> {
             key: idForm,
             child: Column(
               children: [
+                Text("Nombre de la tarea: ")
+                ,
+                SizedBox(height: 20,)
+                ,
                 TextFormField(
                   onSaved: (valor) {
                     newTarea['Nombre'] = valor;
@@ -45,8 +49,11 @@ class _FormularioTareaState extends State<FormularioTarea> {
                   ),
                 ),
                 SizedBox(height: 20),
+                Text("Fecha de Cumplimiento: ")
+                ,
                 Row(
                   children: [
+                    
                     Expanded(
                       child: TextFormField(
                         onSaved: (valor) {
@@ -87,22 +94,26 @@ class _FormularioTareaState extends State<FormularioTarea> {
                   ],
                 ),
                 SizedBox(height: 20),
+                Text("Etiqueta: ")
+                ,
+
+
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                    });
+                  },
+                  items: <String>['One', 'Two', 'Three', 'Four']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
                 
-                 DropdownButton<String>(
-                     
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          
-                        });
-                      },
-                      items: <String>['Alta', 'Media', 'Baja']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                  ),
                 
                 ElevatedButton(
                   onPressed: () {
