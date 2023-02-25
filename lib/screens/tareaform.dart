@@ -15,6 +15,13 @@ class _FormularioTareaState extends State<FormularioTarea> {
   final idForm = GlobalKey<FormState>();
   Map<String, dynamic> newTarea = {};
   DateTime selectedDate = DateTime.now();
+  String dateText = '';
+
+  @override
+  void initState() {
+    super.initState();
+    dateText = '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,49 +45,69 @@ class _FormularioTareaState extends State<FormularioTarea> {
                   ),
                 ),
                 SizedBox(height: 20),
-                
-                
-                ElevatedButton(
-                  onPressed: () {
-                    DatePicker.showDatePicker(
-                      context,
-                      showTitleActions: true,
-                      minTime: DateTime.now(),
-                      maxTime: DateTime(2100, 12, 31),
-                      onConfirm: (date) {
-                        setState(() {
-                          selectedDate = date;
-                        });
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        onSaved: (valor) {
+                          newTarea['Fecha'] =
+                              '${selectedDate.year}-${selectedDate.month}-${selectedDate.day}';
+                        },
+                        controller: TextEditingController(text: dateText),
+                        decoration: InputDecoration(
+                          hintText: "Fecha de la tarea",
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        DatePicker.showDatePicker(
+                          context,
+                          showTitleActions: true,
+                          minTime: DateTime.now(),
+                          maxTime: DateTime(2100, 12, 31),
+                          onConfirm: (date) {
+                            setState(() {
+                              selectedDate = date;
+                              dateText = '${date.day}/${date.month}/${date.year}';
+                            });
+                          },
+                          currentTime: selectedDate,
+                          locale: LocaleType.es,
+                        );
                       },
-                      currentTime: selectedDate,
-                      locale: LocaleType.es,
-                    );
-                  },
-                  child: Text(
-                    'Seleccionar fecha',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                      child: Icon(
+                        Icons.calendar_today,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
-                TextFormField(
-                  onSaved: (valor) {
-                    newTarea['Nombre'] = valor;
-                  },
-                  initialValue: 'Fecha seleccionada: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
-                  decoration: InputDecoration(
-                    hintText: "Titulo de la tarea",
+                
+                 DropdownButton<String>(
+                     
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          
+                        });
+                      },
+                      items: <String>['Alta', 'Media', 'Baja']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
                   ),
-                )
-                ,
-                Text(
-                  'Fecha seleccionada: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
-                ),
+                
                 ElevatedButton(
                   onPressed: () {
                     idForm.currentState?.save();
                     newTarea['Estado'] = "pendiente";
-                    newTarea['Fecha'] =
-                        '${selectedDate.year}-${selectedDate.month}-${selectedDate.day}';
                     Tareas().agrega(newTarea);
                     Navigator.pop(context);
                   },
@@ -93,7 +120,7 @@ class _FormularioTareaState extends State<FormularioTarea> {
                           MaterialPageRoute(
                               builder: (context) => FormularioEtiqueta()));
                     },
-                    child: Text("Gestionar", style: TextStyle(fontSize: 20))),
+                    child: Text("Gestionar etiquetas", style: TextStyle(fontSize: 20))),
                 SizedBox(height: 15),
               ],
             ),
