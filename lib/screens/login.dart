@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/screens/home.dart';
 class LoginScreen extends StatelessWidget {
   //global key es importante
-  GlobalKey _form= GlobalKey();
   @override
   Widget build(BuildContext context) {
 
@@ -14,7 +13,7 @@ class LoginScreen extends StatelessWidget {
         
         child: SafeArea(
           child: Form(
-            key: _form,
+            
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: ListView(

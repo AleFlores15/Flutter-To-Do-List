@@ -23,10 +23,10 @@ class _TareasState extends State<Tareas> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to chilipeppers',
+      title: 'TODO APP',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Welcome to Flutter'),
+          title: Text('TODO APP'),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.logout),

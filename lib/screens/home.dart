@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
+      title: 'TODO APP',
       initialRoute: Tareas.pageName,
       routes: {
         Tareas.pageName: ((BuildContext context)=>Tareas()),

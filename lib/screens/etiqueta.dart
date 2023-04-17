@@ -88,4 +88,4 @@ class _FormularioEtiquetaState extends State<FormularioEtiqueta> {
 
     return temp;
   }
-}
+} 
