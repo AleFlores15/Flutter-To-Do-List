@@ -4,10 +4,8 @@ import 'label_state.dart';
 
 class Labels{
   static List <String> labelsdata=[
-    'b',
-    'ab',
-    'ca',
-    'xd'
+    'Trabajo',
+
   ];
 }
 
@@ -28,13 +26,16 @@ class LabelsCubit extends Cubit<LabelState>{
     emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0]));
   }
 
-void updateLabel (String label, String newLabel){
-  Labels.labelsdata[Labels.labelsdata.indexOf(label)] = newLabel;
-  emit(LabelState(labels: Labels.labelsdata, selected: newLabel));
-  updateSelected(newLabel);
-}
-void saveLabels (){
-  Labels.labelsdata = state.labels;
-  emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0])); 
-}
+  void updateLabel(int index, String newLabel) {
+    Labels.labelsdata[index] = newLabel;
+    emit(LabelState(labels: Labels.labelsdata, selected: newLabel));
+    updateSelected(newLabel);
+  }
+  void saveLabels (){
+    Labels.labelsdata = state.labels;
+    emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0]));
+  }
+
+
+
 }

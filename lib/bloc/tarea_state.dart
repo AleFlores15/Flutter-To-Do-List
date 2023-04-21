@@ -1,6 +1,7 @@
 
 
 class Tareas{
+  int id=0;
   String nombre='';
   String fecha='';
   String label='';
