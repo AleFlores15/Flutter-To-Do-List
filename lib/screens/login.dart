@@ -1,5 +1,7 @@
+import 'package:flutter_to_do_list/bloc/tarea_state.dart';
+import 'package:flutter_to_do_list/screens/todo.dart';
+import 'package:flutter_to_do_list/screens/todoform.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do_list/screens/home.dart';
 class LoginScreen extends StatelessWidget {
   //global key es importante
   @override
@@ -18,9 +20,8 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: ListView(
                 children: [
-                  Image.asset("images/Inicio.png", height: 100, width: 100,),
-                  Text("Bienvenido a\nTODO APP", style: TextStyle(fontSize: 30),textAlign: TextAlign.center),
-                  SizedBox( height: 50,),
+                  const Text("Bienvenido a\nTODO APP", style: TextStyle(fontSize: 30),textAlign: TextAlign.center),
+                  const SizedBox( height: 50,),
                   Container(
                     padding: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(color: Colors.grey.shade200,borderRadius: BorderRadius.all(Radius.circular(60))),
@@ -54,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height:15),
                   ElevatedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen() ));} ,child: Text("Ingresar", style: TextStyle(fontSize: 20))),
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => todolist() ));} ,child: Text("Ingresar", style: TextStyle(fontSize: 20))),
                   SizedBox(height:15),
                   Row(
                     
