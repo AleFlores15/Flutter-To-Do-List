@@ -9,7 +9,7 @@ class Tareas{
 }
 
 class TareaState{
-
+  // final List<Tareas> tareas;
   final List<Tareas> tareas;
-  TareaState(this.tareas);
+  TareaState({required this.tareas});
 }
