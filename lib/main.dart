@@ -1,6 +1,7 @@
+import 'package:cubit_todo/bloc/label_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import './screens/login.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -14,7 +15,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0Xff00B0FF)
       ),
-      home: LoginScreen(),
+      home: BlocProvider(
+        create:(context) => LabelsCubit(), child: LoginScreen()
+      ),
+      
 
     );
   }
