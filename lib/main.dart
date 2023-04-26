@@ -15,12 +15,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0Xff00B0FF)
       ),
-      home: BlocProvider(
-        create:(context) => LabelsCubit(), child: LoginScreen()
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create:(context) => LabelsCubit(), child: LoginScreen()
+          ),
+          BlocProvider(create: (context) => LabelsCubit())
+
+        ],
+        child: LoginScreen(),
       ),
-      
 
     );
   }
 }
 
+// BlocProvider(
+//         create:(context) => LabelsCubit(), child: LoginScreen()
+//       ),
+      

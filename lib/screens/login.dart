@@ -1,3 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_to_do_list/bloc/login_cubit.dart';
+import 'package:flutter_to_do_list/bloc/login_state.dart';
 import 'package:flutter_to_do_list/bloc/tarea_state.dart';
 import 'package:flutter_to_do_list/screens/todo.dart';
 import 'package:flutter_to_do_list/screens/todoform.dart';
@@ -13,7 +16,32 @@ class LoginScreen extends StatelessWidget {
       ),
       body: Container(
         
-        child: SafeArea(
+        child: BlocBuilder <LoginCubit, LoginState>(
+          builder: (context,state){
+            if(state.status== LoginStatus.init){
+              return _loginForm(context);
+            }else if( state.status== LoginStatus.loading){
+              return Center(child: CircularProgressIndicator());
+            }else if(state.status== LoginStatus.success){
+              // return Navigator.push(context, MaterialPageRoute(builder: (context)=> todolist()));
+            }else if (state.status== LoginStatus.failure){
+              return const Text('Error al iniciar sesion');
+            }else{
+              return  const Text('Error ');
+            }
+            return  const Text('Error ');
+
+          },
+          )
+
+      ),
+
+    );
+  }
+}
+
+Widget _loginForm(BuildContext context){
+  return          SafeArea(
           child: Form(
             
             child: Padding(
@@ -71,9 +99,5 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ),
-
-    );
-  }
+        );
 }
