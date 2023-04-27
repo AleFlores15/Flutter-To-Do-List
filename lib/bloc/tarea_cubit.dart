@@ -45,6 +45,17 @@ class TareasCubit extends Cubit<TareaState>{
     }
   } 
 
+  Future <void> postTasks(String desc, String date, int id) async{
+    emit(state.copyWith(status: TareaStatus.loading));
+    try{
+      print('entra a posttasks');
+      await tareasService.postTareas(desc, date, id);
+      emit(state.copyWith(status: TareaStatus.success));
+    } on Exception catch(e){
+      emit(state.copyWith(status: TareaStatus.failure));
+    }
+  }
+
 
 
   
