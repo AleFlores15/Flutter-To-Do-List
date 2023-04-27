@@ -4,9 +4,9 @@ enum LoginStatus{init ,loading, success, failure}
 
 class LoginState extends Equatable{
 
-  final LoginStatus? status;
+  LoginStatus? status;
 
-  const LoginState({ this.status=LoginStatus.init});
+  LoginState({ this.status=LoginStatus.init});
 
   LoginState copyWith({LoginStatus? status}){
     return LoginState(

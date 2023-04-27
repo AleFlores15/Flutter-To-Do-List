@@ -9,11 +9,12 @@ class AuthResponse{
       refreshToken: json['refreshToken'],
     );
   }
-
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data= new Map<String, dynamic>();
     data ['authToken']=this.authToken;
     data ['refreshToken']= this.refreshToken;
     return data; 
   }
+
+
 }

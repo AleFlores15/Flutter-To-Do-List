@@ -12,23 +12,19 @@ class LabelsForm extends StatelessWidget {
     return MaterialApp(
       title: "Mi App",
       home: BlocProvider(
-        create:(context) => LabelsCubit(), child:  inicio()
+        create:(context) => LabelsCubit(), child:  Inicio()
       ),
     );
   }
 }
 
 
-class inicio extends StatefulWidget {
-
-  @override
-  State<inicio> createState() => _inicioState();
-}
-
-class _inicioState extends State<inicio> {
-
+class Inicio extends StatelessWidget {
   int i=0;
   String label1='';
+
+  //const Inicio({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,17 +37,20 @@ class _inicioState extends State<inicio> {
               child: BlocBuilder<LabelsCubit, LabelState>(
                 builder: (context, state) {
                   if (state.labels.isEmpty) {
+
                     return Text('No hay etiquetas');
+                    
                   } else {
                     return ListView.builder(
                       itemCount: state.labels.length,
                       itemBuilder: (context, index) {
-                        String label = state.labels[index];
+                        String label = state.labels[index].content;
                         return Row(
                           children: [
-                            SizedBox(height: 100),
+                            const SizedBox(height: 100),
                             Expanded(
                               child: TextField(
+
                                 decoration: const InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.all(Radius.circular(4))
@@ -59,21 +58,24 @@ class _inicioState extends State<inicio> {
                                   filled: true,
 
                                 ),
+                                
+                                
                                 onChanged: (text) {
                                   i=index;
                                   label1=text;
                                 },
                                 controller: TextEditingController(text: label), textDirection: TextDirection.ltr,
-                                
-                                
-
+                        
                               ),
                             ),
+
+                            // boton que aparece en el textfield para borrar la etiqueta
+
                             IconButton(
                               onPressed: () {
                                 context.read<LabelsCubit>().deleteSelected(label);
                               },
-                              icon: Icon(Icons.delete),
+                              icon:  const Icon(Icons.delete),
                             ),
                           ],
                         );
@@ -84,6 +86,9 @@ class _inicioState extends State<inicio> {
                 },
               )
             ),
+
+            // Boton para guardar
+
             ElevatedButton.icon(
               onPressed: (){
                 context.read<LabelsCubit>().updateLabel(i, label1);
@@ -91,15 +96,28 @@ class _inicioState extends State<inicio> {
               icon: const Icon(Icons.save), 
               label: const Text('Guardar')
             ),
-            SizedBox(height: 10),
+
+
+            const SizedBox(height: 10),
+
+            // Boton para cerrar
+
             ElevatedButton.icon(
-              onPressed: () {Navigator.push(context,MaterialPageRoute(builder: (context) => Todo() ));},
+              onPressed: (){Navigator.push(context,MaterialPageRoute(builder: (context) => Todo() ));},
               icon: const Icon(Icons.close), 
               label: const Text('Cerrar')
             ),
             
+            // Boton para agregar nueva etiqueta vacía
+
             ElevatedButton.icon(
-              onPressed: (){context.read<LabelsCubit>().addLabel('');}, 
+
+              onPressed: (){
+                LabelProps label = LabelProps();
+                label.content = '';
+                label.id = context.read<LabelsCubit>().state.labels.length;
+                context.read<LabelsCubit>().addLabel(label);
+              }, 
               icon: const Icon(Icons.new_label), 
               label: const Text('Nueva etiqueta')
             ),

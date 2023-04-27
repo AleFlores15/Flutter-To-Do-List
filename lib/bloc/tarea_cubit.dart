@@ -1,6 +1,7 @@
 
 import 'package:flutter_to_do_list/bloc/tarea_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_to_do_list/services/tareas_service.dart';
 
 class Tarea{
   static List <Tareas> tareasdata=[
@@ -32,13 +33,19 @@ class TareasCubit extends Cubit<TareaState>{
     emit(TareaState(tareas: Tarea.tareasdata));
     
   }
-  Future <void> loadTareas () async{
-    await Future.delayed(Duration(seconds: 2));
-    emit(TareaState(tareas: Tarea.tareasdata));
-  }
-  
 
-  
+  Future <void> getTasks() async{
+    emit(state.copyWith(status: TareaStatus.loading));
+    try{
+      print('entra a gettasks');
+      await tareasService.getTareas();
+      emit(state.copyWith(status: TareaStatus.success));
+    } on Exception catch(e){
+      emit(state.copyWith(status: TareaStatus.failure));
+    }
+  } 
+
+
 
   
 }

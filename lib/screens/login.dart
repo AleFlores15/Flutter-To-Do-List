@@ -2,9 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_to_do_list/bloc/login_cubit.dart';
 import 'package:flutter_to_do_list/bloc/login_state.dart';
-import 'package:flutter_to_do_list/bloc/tarea_state.dart';
 import 'package:flutter_to_do_list/screens/todo.dart';
-import 'package:flutter_to_do_list/screens/todoform.dart';
 import 'package:flutter/material.dart';
 class LoginScreen extends StatelessWidget {
   
@@ -34,7 +32,18 @@ class LoginScreen extends StatelessWidget {
 
               //return Container();
             }else if (state.status== LoginStatus.failure){
-              return const Text('Error al iniciar sesion');
+              return AlertDialog(
+                title: Text('Error'),
+                content: Text('Usuario o contraseña incorrectos'),
+                actions: [
+                  TextButton(
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                      
+                    }, 
+                    child: Text('Aceptar')
+                  )
+                ],);
             }else{
               return  const Text('Error ');
             }

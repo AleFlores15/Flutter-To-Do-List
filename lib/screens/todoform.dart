@@ -33,14 +33,9 @@ class Todo extends StatelessWidget {
   }
 }
 
-class Inicio extends StatefulWidget {
-  const Inicio({Key? key});
 
-  @override
-  State<Inicio> createState() => _InicioState();
-}
 
-class _InicioState extends State<Inicio> {
+class Inicio extends StatelessWidget {
   final _tituloController = TextEditingController();
   final _fechaController = TextEditingController();
 
@@ -48,7 +43,7 @@ class _InicioState extends State<Inicio> {
   void dispose() {
     _tituloController.dispose();
     _fechaController.dispose();
-    super.dispose();
+ 
   }
 
   @override
@@ -102,12 +97,12 @@ class _InicioState extends State<Inicio> {
                             .read<LabelsCubit>()
                             .updateSelected(newValue ?? "");
                       },
-                      items: state.labels.map((label) {
-                        return DropdownMenuItem(
-                          value: label,
-                          child: Text(label),
-                        );
-                      }).toList(),
+                      items: state.labelsToStringList().map((label) {
+                          return DropdownMenuItem(
+                            value: label,
+                            child: Text(label),
+                          );
+                        }).toList(),
                     ),
                     ElevatedButton.icon(
                         onPressed: () {

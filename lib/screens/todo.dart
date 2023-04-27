@@ -2,8 +2,6 @@ import 'package:flutter_to_do_list/bloc/tarea_state.dart';
 import 'package:flutter_to_do_list/bloc/tarea_cubit.dart';
 import 'package:flutter_to_do_list/screens/todoform.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do_list/bloc/label_cubit.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class todolist extends StatelessWidget {
@@ -20,17 +18,12 @@ class todolist extends StatelessWidget {
 }
 
 
-class inicio extends StatefulWidget {
 
-  @override
-  State<inicio> createState() => _inicioState();
-}
-
-class _inicioState extends State<inicio> {
+class inicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tareas')),
+      
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,8 +31,30 @@ class _inicioState extends State<inicio> {
             Expanded(
               child: BlocBuilder<TareasCubit, TareaState>(
                 builder: (context, state) {
+                                BlocProvider.of<TareasCubit>(context).getTasks();
+
+                  if(state.status== TareaStatus.loading){
+                    return const Center(child: CircularProgressIndicator());
+                  }else if(state.status== TareaStatus.success){
+
+                   
+                    print('hol ale');
+                    int c=0;
+                    if(c==0){
+                      print('khe');
+                      c++;
+                    }
+                  }else{
+                    print('hol ale');
+                    int c=0;
+                    if(c==0){
+                      return const Center(child: Text('No hay tareas'));
+                      c++;
+                    }
+                  }
+    
                   if (state.tareas.isEmpty) {
-                    return Center(child: Text('No hay tareas'));
+                    return const Center(child: Text('No hay tareas'));
                   } else {
                     return ListView.builder(
                       itemCount: state.tareas.length,
@@ -47,50 +62,16 @@ class _inicioState extends State<inicio> {
                         Tareas tarea = state.tareas[index];
                         return Row(
                           children: [
-                            SizedBox(height: 100),
+                            const SizedBox(height: 100),
                             Expanded(
                               child: Card(
                                 child: Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                            Text("Tarea: ", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-                                            Text(tarea.nombre, style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-                                          ],
-                                      ),
+                                  padding: const EdgeInsets.all(16.0),
 
+                                  // abajo se llama al widget contenido que
+                                  //contiene todo lo de la tarjeta (tarea)
 
-
-                                      SizedBox(height: 8.0),
-
-                                      Row(
-                                        children: [
-                                          Text("Fecha: ", style: TextStyle(fontSize: 16.0)),
-                                          Text(tarea.fecha, style: TextStyle(fontSize: 16.0)),
-
-                                        ],
-                                      ),
-                                      SizedBox(height: 8.0),
-                                      Row(
-                                        children: [
-                                          Text("Etiqueta: ", style: TextStyle(fontSize: 16.0)),
-                                          Text(tarea.label, style: TextStyle(fontSize: 16.0)),
-
-                                        ],
-                                      ),
-                                      SizedBox(height: 8.0),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          
-                                          context.read<TareasCubit>().updateTarea(tarea,index);
-                                        },
-                                        child: Text(tarea.completado ? 'Completado' : 'No completado'),
-                                      ),
-                                    ],
-                                  ),
+                                  child: contenido(context,tarea, index)
                                 ),
                               ),
                             ),
@@ -115,10 +96,51 @@ class _inicioState extends State<inicio> {
   }
 }
 
+Widget contenido(BuildContext context,Tareas tarea, int index) {
+  return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                  const Text("Tarea: ", style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+                  Text(tarea.nombre, style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
+                ],
+            ),
 
-                            //  IconButton(
-                            //    onPressed: () {
-                            //     context.read<TareasCubit>().deleteSelected(label);
-                            //    },
-                            //    icon: Icon(Icons.delete),
-                            //  ),
+
+
+            const SizedBox(height: 8.0),
+
+            Row(
+              children: [
+                const Text("Fecha: ", style: TextStyle(fontSize: 16.0)),
+                Text(tarea.fecha, style: const TextStyle(fontSize: 16.0)),
+
+              ],
+            ),
+            const SizedBox(height: 8.0),
+            Row(
+              children: [
+                const Text("Etiqueta: ", style: TextStyle(fontSize: 16.0)),
+                Text(tarea.label, style: const TextStyle(fontSize: 16.0)),
+
+              ],
+            ),
+              const SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: () {
+                
+                context.read<TareasCubit>().updateTarea(tarea,index);
+              },
+              child: Text(tarea.completado ? 'Completado' : 'No completado'),
+            ),
+          ],
+        );
+
+}
+      //  IconButton(
+      //    onPressed: () {
+      //     context.read<TareasCubit>().deleteSelected(label);
+      //    },
+      //    icon: Icon(Icons.delete),
+      //  ),
