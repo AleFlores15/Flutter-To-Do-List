@@ -32,5 +32,13 @@ class TareasCubit extends Cubit<TareaState>{
     emit(TareaState(tareas: Tarea.tareasdata));
     
   }
+  Future <void> loadTareas () async{
+    await Future.delayed(Duration(seconds: 2));
+    emit(TareaState(tareas: Tarea.tareasdata));
+  }
+  
+
+  
+
   
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_to_do_list/bloc/login_state.dart';
+import 'package:flutter_to_do_list/services/login_service.dart';
 
 class LoginCubit extends Cubit<LoginState>{
   //final LoginRepository _loginRepository;
@@ -8,6 +9,7 @@ class LoginCubit extends Cubit<LoginState>{
     emit(state.copyWith(status: LoginStatus.loading));
     try{
       //final user = await _loginRepository.login(email, password); 
+      await LoginService.login(email, password);
       emit(state.copyWith(status: LoginStatus.success));
     } on Exception catch(e){
       emit(state.copyWith(status: LoginStatus.failure));

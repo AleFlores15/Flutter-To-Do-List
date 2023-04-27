@@ -1,7 +1,10 @@
 import  'dart:convert';
+import 'dart:math';
+import 'package:flutter_to_do_list/dto/api_response.dart';
+import 'package:flutter_to_do_list/dto/auth_response.dart';
 import 'package:http/http.dart' as http;
 
-const String urlBase= 'https://ernestomar-potential-goggles-4vxwxqpp42v-9999.preview.app.github.dev/';
+const String urlBase= 'http://localhost:9999';
 
 class LoginService{
   static Future<ApiResponse> login(String email, String password) async{
@@ -9,21 +12,27 @@ class LoginService{
       Uri.parse(urlBase + '/api/v1/auth/login')
       ,
       headers: 
+      
       {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: jsonEncode({
-        'email': email,
+        'username': email,
         'password': password
       }),
     );
-    if (response.statusCode == 200){
+    print(response.body);
+    print('sss');
+    if (response.statusCode == 200 ){
+      //log(897897897);
+      print('ók');
       return ApiResponse.fromJson(json.decode(response.body));
-    } else {
+
+    } else {  
       throw Exception('Error al iniciar sesión');
     }
 
     
   }
-}
+} 
