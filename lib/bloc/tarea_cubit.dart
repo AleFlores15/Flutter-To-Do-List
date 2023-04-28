@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter_to_do_list/bloc/tarea_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_to_do_list/services/tareas_service.dart';
@@ -14,6 +16,8 @@ class TareasCubit extends Cubit<TareaState>{
 
   void addTarea (Tareas tarea){
     Tarea.tareasdata.add(tarea);
+    print('tareas: ');
+    print(Tarea.tareasdata.length);
     emit(TareaState(tareas: Tarea.tareasdata));
   }
 
@@ -39,6 +43,7 @@ class TareasCubit extends Cubit<TareaState>{
     try{
       print('entra a gettasks');
       await tareasService.getTareas();
+      log(await tareasService.getTareas().toString());
       emit(state.copyWith(status: TareaStatus.success));
     } on Exception catch(e){
       emit(state.copyWith(status: TareaStatus.failure));
@@ -52,6 +57,11 @@ class TareasCubit extends Cubit<TareaState>{
       await tareasService.postTareas(desc, date, id);
       emit(state.copyWith(status: TareaStatus.success));
     } on Exception catch(e){
+      print('|||||||||||||||||||||||||||||||||||||||||||||||||');
+
+      print(e);
+      print('|||||||||||||||||||||||||||||||||||||||||||||||||');
+
       emit(state.copyWith(status: TareaStatus.failure));
     }
   }

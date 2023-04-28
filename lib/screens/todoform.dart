@@ -114,11 +114,13 @@ class Inicio extends StatelessWidget {
                           tarea.fecha=fecha;
                           tarea.label=state.selected;
                           tarea.completado=false;
-                          context.read<TareasCubit>().addTarea(tarea);
+                          
                           _tituloController.clear();
                           _fechaController.clear();
-                          print(tarea.label);
+                          print('hola?');
                           BlocProvider.of<TareasCubit>(context).postTasks(titulo, fecha, id);
+                          context.read<TareasCubit>().addTarea(tarea);
+                          print('k');
                           Navigator.push(context,MaterialPageRoute(builder: (context) => todolist()));
                         },
                         icon: const Icon(Icons.add),

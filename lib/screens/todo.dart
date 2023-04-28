@@ -31,8 +31,10 @@ class inicio extends StatelessWidget {
             Expanded(
               child: BlocBuilder<TareasCubit, TareaState>(
                 builder: (context, state) {
-                                BlocProvider.of<TareasCubit>(context).getTasks();
 
+                  
+                  BlocProvider.of<TareasCubit>(context).getTasks();
+                  
                   if(state.status== TareaStatus.loading){
                     return const Center(child: CircularProgressIndicator());
                   }else if(state.status== TareaStatus.success){
@@ -45,20 +47,21 @@ class inicio extends StatelessWidget {
                       c++;
                     }
                   }else{
-                    print('hol ale');
-                    int c=0;
-                    if(c==0){
-                      return const Center(child: Text('No hay tareas'));
-                      c++;
-                    }
+                      return const Center(child: Text('No hay tareas sexo'));
+                      
+                    
+                    
                   }
-    
+                  
                   if (state.tareas.isEmpty) {
                     return const Center(child: Text('No hay tareas'));
                   } else {
                     return ListView.builder(
+                    
                       itemCount: state.tareas.length,
                       itemBuilder: (context, index) {
+                        print("******************************************");
+                        print(state.tareas.length);
                         Tareas tarea = state.tareas[index];
                         return Row(
                           children: [
