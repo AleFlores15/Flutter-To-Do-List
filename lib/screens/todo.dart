@@ -3,23 +3,10 @@ import 'package:flutter_to_do_list/bloc/tarea_cubit.dart';
 import 'package:flutter_to_do_list/screens/todoform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-class todolist extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Mi App",
-      home: BlocProvider(
-        create:(context) => TareasCubit(), child:  inicio()
-      ),
-    );
-  }
-}
+bool isCalled = false;
 
 
-
-class inicio extends StatelessWidget {
+class Todolist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,20 +20,19 @@ class inicio extends StatelessWidget {
                 builder: (context, state) {
 
                   
-                  BlocProvider.of<TareasCubit>(context).getTasks();
-                  
+                  if(!isCalled){
+                    BlocProvider.of<TareasCubit>(context).getTasks();
+                    isCalled = true;
+                  }
                   if(state.status== TareaStatus.loading){
                     return const Center(child: CircularProgressIndicator());
                   }else if(state.status== TareaStatus.success){
+                    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+                    
+                    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
 
-                   
-                    print('hol ale');
-                    int c=0;
-                    if(c==0){
-                      print('khe');
-                      c++;
-                    }
                   }else{
+                    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
                       return const Center(child: Text('No hay tareas sexo'));
                       
                     

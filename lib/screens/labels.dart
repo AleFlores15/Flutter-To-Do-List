@@ -5,23 +5,14 @@ import 'package:flutter_to_do_list/bloc/label_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+
+
 class LabelsForm extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Mi App",
-      home: BlocProvider(
-        create:(context) => LabelsCubit(), child:  Inicio()
-      ),
-    );
-  }
-}
-
-
-class Inicio extends StatelessWidget {
   int i=0;
   String label1='';
+
+  LabelsForm({super.key});
 
   //const Inicio({Key? key}) : super(key: key);
 
@@ -36,6 +27,8 @@ class Inicio extends StatelessWidget {
             Expanded(
               child: BlocBuilder<LabelsCubit, LabelState>(
                 builder: (context, state) {
+
+                  //BlocProvider.of<LabelsCubit>(context).getLabels();
                   if (state.labels.isEmpty) {
 
                     return Text('No hay etiquetas');
@@ -92,6 +85,7 @@ class Inicio extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: (){
                 context.read<LabelsCubit>().updateLabel(i, label1);
+                BlocProvider.of<LabelsCubit>(context).putLabels(i,label1);
               }, 
               icon: const Icon(Icons.save), 
               label: const Text('Guardar')
@@ -117,6 +111,7 @@ class Inicio extends StatelessWidget {
                 label.content = '';
                 label.id = context.read<LabelsCubit>().state.labels.length;
                 context.read<LabelsCubit>().addLabel(label);
+                BlocProvider.of<LabelsCubit>(context).postLabels(label.content);
               }, 
               icon: const Icon(Icons.new_label), 
               label: const Text('Nueva etiqueta')

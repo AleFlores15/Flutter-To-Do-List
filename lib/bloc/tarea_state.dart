@@ -8,6 +8,7 @@ class Tareas{
   String label='';
   bool completado= false;
 }
+
 enum TareaStatus {init ,loading, success, failure}
 class TareaState{
   final List<Tareas> tareas;

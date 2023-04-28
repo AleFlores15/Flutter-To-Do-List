@@ -39,7 +39,7 @@ class TareasCubit extends Cubit<TareaState>{
   }
 
   Future <void> getTasks() async{
-    emit(state.copyWith(status: TareaStatus.loading));
+    //emit(state.copyWith(status: TareaStatus.loading));
     try{
       print('entra a gettasks');
       await tareasService.getTareas();
@@ -57,11 +57,7 @@ class TareasCubit extends Cubit<TareaState>{
       await tareasService.postTareas(desc, date, id);
       emit(state.copyWith(status: TareaStatus.success));
     } on Exception catch(e){
-      print('|||||||||||||||||||||||||||||||||||||||||||||||||');
-
       print(e);
-      print('|||||||||||||||||||||||||||||||||||||||||||||||||');
-
       emit(state.copyWith(status: TareaStatus.failure));
     }
   }

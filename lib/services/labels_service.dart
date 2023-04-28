@@ -25,7 +25,7 @@ class labelsService {
 
   static Future<ApiResponse> postLabel(String name) async{
     var response = await http.post(
-      Uri.parse(urlBase + '/api/v1/task'),
+      Uri.parse(urlBase + '/api/v1/label'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

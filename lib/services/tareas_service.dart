@@ -8,26 +8,25 @@ String urlBase= 'http://localhost:9999';
 var authToken = LoginService.responseBody['response']['authToken'];
 class tareasService {
   static Future<ApiResponse> getTareas() async {
-    print('service entra');
-     // Accede al valor del authToken del mapa de LoginService
-    print(authToken);
+    Map<String, dynamic> responseBody = {};
     var response = await http.get(
       Uri.parse(urlBase + '/api/v1/task'),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Bearer ' + authToken, // Usa el authToken en el encabezado de la solicitud
+        'Authorization': 'Bearer ' + authToken, 
       },
     );
     if (response.statusCode == 200) {
-      log(json.decode(response.body)['response'].toString());
-      return ApiResponse.fromJson(json.decode(response.body));
+      responseBody = json.decode(response.body);
+      return ApiResponse.fromJson(responseBody);
     } else {
       throw Exception('Error al obtener tareas');
     }
   }
 
   static Future<ApiResponse> postTareas(String desc, String date, int id) async{
+     Map<String, dynamic> responseBody = {}; 
     var response = await http.post(
       Uri.parse(urlBase + '/api/v1/task'),
       headers: {
@@ -35,12 +34,20 @@ class tareasService {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + authToken,
       },
-      body: jsonEncode({'description': desc,'date': date,'labelIds': [id]}),
+      body: jsonEncode({
+        'description': desc,
+        'date': date,
+        'labelIds': [id]
+      }),
+
     );
-    print('---------------------------------------------------------------------------');
-    print(authToken);
+
     if (response.statusCode == 200) {
-      return ApiResponse.fromJson(json.decode(response.body));
+      responseBody = json.decode(response.body);
+      print("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      print(responseBody.runtimeType);
+      print(responseBody);
+      return ApiResponse.fromJson(responseBody);
     } else {
       throw Exception('Error al obtener tareas');
     }

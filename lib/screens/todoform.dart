@@ -11,31 +11,8 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
 
+
 class Todo extends StatelessWidget {
-  const Todo({Key? key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Mi App",
-      home: MultiBlocProvider (
-        providers: [
-          BlocProvider(
-            create: (context) => LabelsCubit(),
-          ),
-          BlocProvider(
-            create: (context) => TareasCubit(),
-          ),
-        ],
-        child: Inicio(),
-      ),
-    );
-  }
-}
-
-
-
-class Inicio extends StatelessWidget {
   final _tituloController = TextEditingController();
   final _fechaController = TextEditingController();
 
@@ -121,7 +98,7 @@ class Inicio extends StatelessWidget {
                           BlocProvider.of<TareasCubit>(context).postTasks(titulo, fecha, id);
                           context.read<TareasCubit>().addTarea(tarea);
                           print('k');
-                          Navigator.push(context,MaterialPageRoute(builder: (context) => todolist()));
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => Todolist()));
                         },
                         icon: const Icon(Icons.add),
                         label: const Text('Añadir Tarea')),
@@ -141,7 +118,7 @@ class Inicio extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => todolist()));
+                                  builder: (context) => Todolist()));
                         },
                         icon: const Icon(Icons.close),
                         label: const Text('Cancelar')),

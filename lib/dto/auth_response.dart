@@ -8,6 +8,7 @@ class AuthResponse{
       authToken: json['authToken'],
       refreshToken: json['refreshToken'],
     );
+    
   }
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> data= new Map<String, dynamic>();
