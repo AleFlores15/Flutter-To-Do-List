@@ -7,9 +7,9 @@ class taskResponse{
 
   factory taskResponse.fromJson(Map<String, dynamic> json){
     return taskResponse(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
+      id: json['id']?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
     );
   }
 

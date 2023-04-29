@@ -60,7 +60,40 @@ class TareasCubit extends Cubit<TareaState>{
       print(e);
       emit(state.copyWith(status: TareaStatus.failure));
     }
+  } 
+
+void parseTareas(dynamic response) {
+  print(response);
+  List<dynamic> tareasJson = response;
+  print('Watefeeeeeeeeeeeeeeeeeeeeeeeeec');
+  
+  // Imprimir lista de tareas antes de agregar las tareas
+  print('Lista de tareas antes de agregar las tareas:');
+  Tarea.tareasdata.forEach((tarea) => print(tarea.id));
+  
+  for (var tareaJson in tareasJson) {
+    int id = tareaJson['taskId'];
+    bool existe = Tarea.tareasdata.any((tarea) => tarea.id == id);
+    if (!existe) {
+      Tareas tarea = Tareas();
+      tarea.id = id;
+      tarea.nombre = tareaJson['description'] ?? '';
+      tarea.fecha = tareaJson['date'] ?? '';
+      tarea.completado = false;
+      tarea.label = 'holis';
+      Tarea.tareasdata.add(tarea);
+    }
   }
+
+  // Imprimir lista de tareas después de agregar las tareas
+  print('Lista de tareas después de agregar las tareas:');
+  Tarea.tareasdata.forEach((tarea) => print(tarea.id));
+  
+  emit(TareaState(tareas: Tarea.tareasdata));
+}
+
+
+
 
 
 

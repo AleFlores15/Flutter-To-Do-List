@@ -3,14 +3,18 @@ import 'package:flutter_to_do_list/bloc/tarea_cubit.dart';
 import 'package:flutter_to_do_list/screens/todoform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-bool isCalled = false;
+//bool isCalled = false;
 
 
 class Todolist extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    print('build');
+    BlocProvider.of<TareasCubit>(context).getTasks();
+    
     return Scaffold(
-      
+      appBar: AppBar(title: const Text('Tareas')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -18,36 +22,17 @@ class Todolist extends StatelessWidget {
             Expanded(
               child: BlocBuilder<TareasCubit, TareaState>(
                 builder: (context, state) {
-
-                  
-                  if(!isCalled){
-                    BlocProvider.of<TareasCubit>(context).getTasks();
-                    isCalled = true;
-                  }
                   if(state.status== TareaStatus.loading){
                     return const Center(child: CircularProgressIndicator());
                   }else if(state.status== TareaStatus.success){
-                    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-                    
-                    print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
-
-                  }else{
-                    print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-                      return const Center(child: Text('No hay tareas sexo'));
-                      
-                    
-                    
-                  }
-                  
-                  if (state.tareas.isEmpty) {
+                 if (state.tareas.isEmpty) {
                     return const Center(child: Text('No hay tareas'));
                   } else {
                     return ListView.builder(
                     
                       itemCount: state.tareas.length,
                       itemBuilder: (context, index) {
-                        print("******************************************");
-                        print(state.tareas.length);
+                        
                         Tareas tarea = state.tareas[index];
                         return Row(
                           children: [
@@ -71,6 +56,20 @@ class Todolist extends StatelessWidget {
                     );
                     
                   }
+                   
+                    
+                  }else if(state.status== TareaStatus.init){
+                    
+                    
+                      return const Center(child: Text('No hay tareas'));
+                      
+                    
+                    
+                  }else{
+                    return const Center(child: Text('Error'));
+                  }
+                  
+ 
                 },
               )
             ),

@@ -18,7 +18,7 @@ class LoginService {
       },
       body: jsonEncode({'username': email, 'password': password}),
     );
-    print(response.body);
+    
     if (response.statusCode == 200) {
       responseBody = json.decode(response.body); // Decodifica el cuerpo de la respuesta en un mapa
       return ApiResponse.fromJson(responseBody);

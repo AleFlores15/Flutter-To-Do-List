@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-
-
 class LabelsForm extends StatelessWidget {
   int i=0;
   String label1='';

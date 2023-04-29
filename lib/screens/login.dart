@@ -25,12 +25,7 @@ class LoginScreen extends StatelessWidget {
 
               return Center(child: CircularProgressIndicator());
             }else if(state.status== LoginStatus.success){
-              print('apisuccess');
               return Todolist();  
-              //Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => todolist()), (route) => false);
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=> todolist()));
-
-              //return Container();
             }else if (state.status== LoginStatus.failure){
               return AlertDialog(
                 title: Text('Error'),
@@ -47,10 +42,6 @@ class LoginScreen extends StatelessWidget {
             }else{
               return  const Text('Error ');
             }
-            print(state.status);
-            
-            return  const Text('Errors ');
-
           },
           )
 

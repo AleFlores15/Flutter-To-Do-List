@@ -45,6 +45,8 @@ class LabelsCubit extends Cubit<LabelState>{
       await labelsService.getLabels();
       emit(state.copyWith(status: LabelStatus.success));
     } on Exception catch(e){
+      print("siisisissisiisis");
+      print(e);
       emit(state.copyWith(status: LabelStatus.failure));
     }
   

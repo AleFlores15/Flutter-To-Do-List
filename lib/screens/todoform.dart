@@ -96,7 +96,7 @@ class Todo extends StatelessWidget {
                           _fechaController.clear();
                           print('hola?');
                           BlocProvider.of<TareasCubit>(context).postTasks(titulo, fecha, id);
-                          context.read<TareasCubit>().addTarea(tarea);
+                          
                           print('k');
                           Navigator.push(context,MaterialPageRoute(builder: (context) => Todolist()));
                         },
