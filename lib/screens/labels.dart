@@ -16,6 +16,7 @@ class LabelsForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<LabelsCubit>(context).getLabels();
     return Scaffold(
       appBar: AppBar(title: Text('Etiquetas')),
       body: Center(
@@ -26,7 +27,7 @@ class LabelsForm extends StatelessWidget {
               child: BlocBuilder<LabelsCubit, LabelState>(
                 builder: (context, state) {
 
-                  //BlocProvider.of<LabelsCubit>(context).getLabels();
+                  
                   if (state.labels.isEmpty) {
 
                     return Text('No hay etiquetas');
@@ -105,10 +106,10 @@ class LabelsForm extends StatelessWidget {
             ElevatedButton.icon(
 
               onPressed: (){
-                LabelProps label = LabelProps();
-                label.content = '';
-                label.id = context.read<LabelsCubit>().state.labels.length;
-                context.read<LabelsCubit>().addLabel(label);
+                LabelProps label = LabelProps(id:1 ,content:'');
+                //label.content = '';
+                //label.id = context.read<LabelsCubit>().state.labels.length;
+                //context.read<LabelsCubit>().addLabel(label);
                 BlocProvider.of<LabelsCubit>(context).postLabels(label.content);
               }, 
               icon: const Icon(Icons.new_label), 

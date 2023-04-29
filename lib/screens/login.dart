@@ -20,6 +20,7 @@ class LoginScreen extends StatelessWidget {
         child: BlocBuilder <LoginCubit, LoginState>(
           builder: (context,state){
             if(state.status== LoginStatus.init){
+              
               return _loginForm(context);
             }else if( state.status== LoginStatus.loading){
 
@@ -34,7 +35,7 @@ class LoginScreen extends StatelessWidget {
                   TextButton(
                     onPressed: (){
                       Navigator.of(context).pop();
-                      
+          
                     }, 
                     child: Text('Aceptar')
                   )

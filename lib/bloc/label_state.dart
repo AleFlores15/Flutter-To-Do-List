@@ -1,6 +1,9 @@
 class LabelProps{
    int id=0;
    String content='';
+   LabelProps({required this.id, required this.content});
+
+
 }
 
 enum LabelStatus {init ,loading, success, failure}

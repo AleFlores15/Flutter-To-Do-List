@@ -1,3 +1,4 @@
+import 'package:flutter_to_do_list/bloc/label_cubit.dart';
 import 'package:flutter_to_do_list/bloc/tarea_state.dart';
 import 'package:flutter_to_do_list/bloc/tarea_cubit.dart';
 import 'package:flutter_to_do_list/screens/todoform.dart';
@@ -10,8 +11,9 @@ class Todolist extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    print('build');
+    BlocProvider.of<LabelsCubit>(context).getLabels();
     BlocProvider.of<TareasCubit>(context).getTasks();
+    
     
     return Scaffold(
       appBar: AppBar(title: const Text('Tareas')),
@@ -25,6 +27,7 @@ class Todolist extends StatelessWidget {
                   if(state.status== TareaStatus.loading){
                     return const Center(child: CircularProgressIndicator());
                   }else if(state.status== TareaStatus.success){
+                    //BlocProvider.of<LabelsCubit>(context).getLabels();
                  if (state.tareas.isEmpty) {
                     return const Center(child: Text('No hay tareas'));
                   } else {
@@ -78,7 +81,9 @@ class Todolist extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-      onPressed: () {Navigator.push(context,MaterialPageRoute(builder: (context) => Todo() ));},
+      onPressed: () {
+        //BlocProvider.of<LabelsCubit>(context).getLabels();
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Todo() ));},
       child: Icon(Icons.add),),
     );
   }

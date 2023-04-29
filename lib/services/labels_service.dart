@@ -1,7 +1,9 @@
 import  'dart:convert';
 import 'dart:developer';
+import 'package:flutter_to_do_list/bloc/label_cubit.dart';
 import 'package:flutter_to_do_list/dto/api_response.dart';
 import 'package:flutter_to_do_list/dto/auth_response.dart';
+import 'package:flutter_to_do_list/dto/label_response.dart';
 import 'package:flutter_to_do_list/services/login_service.dart';
 import 'package:http/http.dart' as http;
 String urlBase= 'http://localhost:9999';
@@ -17,13 +19,14 @@ class labelsService {
       },
     );
     if (response.statusCode == 200) {
+      LabelsCubit().parseLabels(json.decode(response.body)['response']);
       return ApiResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception('Error al obtener labels');
     }
   }
 
-  static Future<ApiResponse> postLabel(String name) async{
+  static Future<LabelResponse> postLabel(String name) async{
     var response = await http.post(
       Uri.parse(urlBase + '/api/v1/label'),
       headers: {
@@ -35,14 +38,14 @@ class labelsService {
     );
 
     if (response.statusCode == 200) {
-      return ApiResponse.fromJson(json.decode(response.body));
+      return LabelResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception('Error al enviar tarea');
     }
 
   }
   // updatelabels
-  static Future<ApiResponse> updateLabel( int index, String name) async{
+  static Future<LabelResponse> updateLabel( int index, String name) async{
 
       var response = await http.put(
       Uri.parse(urlBase + '/api/v1/label/${index}'),
@@ -55,7 +58,7 @@ class labelsService {
     );
 
     if (response.statusCode == 200) {
-      return ApiResponse.fromJson(json.decode(response.body));
+      return LabelResponse.fromJson(json.decode(response.body));
     } else {
       throw Exception('Error al enviar tarea');
     }

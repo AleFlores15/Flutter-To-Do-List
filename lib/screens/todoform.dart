@@ -83,7 +83,7 @@ class Todo extends StatelessWidget {
                     ),
                     ElevatedButton.icon(
                         onPressed: () {
-                          final id = state.labels.length + 1;
+                          final id = findLabelId(state.selected, state.labels);
                           final titulo = _tituloController.text;
                           final fecha = _fechaController.text;
                           final tarea = Tareas();
@@ -95,7 +95,11 @@ class Todo extends StatelessWidget {
                           _tituloController.clear();
                           _fechaController.clear();
                           print('hola?');
+                          print(state.selected);
+                          
                           BlocProvider.of<TareasCubit>(context).postTasks(titulo, fecha, id);
+
+
                           
                           print('k');
                           Navigator.push(context,MaterialPageRoute(builder: (context) => Todolist()));
@@ -131,4 +135,12 @@ class Todo extends StatelessWidget {
       ),
     );
   }
+  int findLabelId(String content, List<LabelProps> labels) {
+  for (var i = 0; i < labels.length; i++) {
+    if (labels[i].content == content) {
+      return labels[i].id;
+    }
+  }
+  return 3;
+}
 }

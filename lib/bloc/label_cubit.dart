@@ -3,23 +3,22 @@ import 'label_state.dart';
 import 'package:flutter_to_do_list/services/labels_service.dart';
 
 class Labels{
-  LabelProps a= LabelProps();
-  static List <LabelProps> labelsdata=[
-    LabelProps(  ),
-
-  ];
+  static List <LabelProps> labelsdata=[ LabelProps(id: 0, content: 'label1')];
   
 }
 
 class LabelsCubit extends Cubit<LabelState>{
-  LabelsCubit() : super(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0].content));
+  LabelsCubit() : super(LabelState(labels: Labels.labelsdata, selected:
+   Labels.labelsdata.isEmpty ? '' : Labels.labelsdata[0].content));
 
   void updateSelected(String label){
     emit(LabelState(labels: Labels.labelsdata, selected: label));
   }
 
   void deleteSelected(String label){
+    print('por queeeeeeeeeeeeeeeee');
     Labels.labelsdata.remove(label);
+    print(Labels.labelsdata);
     emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0].content));
   }
 
@@ -41,12 +40,9 @@ class LabelsCubit extends Cubit<LabelState>{
   Future <void> getLabels() async{
     emit(state.copyWith(status: LabelStatus.loading));
     try{
-      print('entra a getlabels');
       await labelsService.getLabels();
       emit(state.copyWith(status: LabelStatus.success));
     } on Exception catch(e){
-      print("siisisissisiisis");
-      print(e);
       emit(state.copyWith(status: LabelStatus.failure));
     }
   
@@ -55,7 +51,6 @@ class LabelsCubit extends Cubit<LabelState>{
   Future <void> postLabels(String content) async{
     emit(state.copyWith(status: LabelStatus.loading));
     try{
-      print('entra a postlabels');
       await labelsService.postLabel(content);
       emit(state.copyWith(status: LabelStatus.success));
     } on Exception catch(e){
@@ -68,7 +63,6 @@ class LabelsCubit extends Cubit<LabelState>{
   Future <void> putLabels(int id, String content) async{
     emit(state.copyWith(status: LabelStatus.loading));
     try{
-      print('entra a putlabels');
       await labelsService.updateLabel(id, content);
       emit(state.copyWith(status: LabelStatus.success));
     } on Exception catch(e){
@@ -77,6 +71,31 @@ class LabelsCubit extends Cubit<LabelState>{
   
   }
 
+  void parseLabels(dynamic response) {
+    List<dynamic> labelsJson = response;
+
+
+    for(var labelJson in labelsJson){
+      int id = labelJson['labelId'];
+      bool existe = Labels.labelsdata.any((label) => label.id == id);
+      if(!existe){
+        LabelProps label = LabelProps(id: id, content: labelJson['name']);
+        Labels.labelsdata.add(label);
+      }
+    }
+    emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0].content));
+
+  }
+
+  String Label(int id){
+    String label = '';
+    for(var labelJson in Labels.labelsdata){
+      if(labelJson.id == id){
+        label = labelJson.content;
+      }
+    }
+    return label;
+  }
 
   
 

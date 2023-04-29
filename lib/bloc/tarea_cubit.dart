@@ -1,14 +1,13 @@
 
 import 'dart:developer';
 
+import 'package:flutter_to_do_list/bloc/label_cubit.dart';
 import 'package:flutter_to_do_list/bloc/tarea_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_to_do_list/services/tareas_service.dart';
 
 class Tarea{
-  static List <Tareas> tareasdata=[
-    
-  ];
+  static List <Tareas> tareasdata=[];
 }
 
 class TareasCubit extends Cubit<TareaState>{
@@ -53,7 +52,6 @@ class TareasCubit extends Cubit<TareaState>{
   Future <void> postTasks(String desc, String date, int id) async{
     emit(state.copyWith(status: TareaStatus.loading));
     try{
-      print('entra a posttasks');
       await tareasService.postTareas(desc, date, id);
       emit(state.copyWith(status: TareaStatus.success));
     } on Exception catch(e){
@@ -63,14 +61,7 @@ class TareasCubit extends Cubit<TareaState>{
   } 
 
 void parseTareas(dynamic response) {
-  print(response);
   List<dynamic> tareasJson = response;
-  print('Watefeeeeeeeeeeeeeeeeeeeeeeeeec');
-  
-  // Imprimir lista de tareas antes de agregar las tareas
-  print('Lista de tareas antes de agregar las tareas:');
-  Tarea.tareasdata.forEach((tarea) => print(tarea.id));
-  
   for (var tareaJson in tareasJson) {
     int id = tareaJson['taskId'];
     bool existe = Tarea.tareasdata.any((tarea) => tarea.id == id);
@@ -80,16 +71,51 @@ void parseTareas(dynamic response) {
       tarea.nombre = tareaJson['description'] ?? '';
       tarea.fecha = tareaJson['date'] ?? '';
       tarea.completado = false;
-      tarea.label = 'holis';
+      //print('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO');
+
+      dynamic xd = tareaJson['labelIds'][0];
+      //imprimir todo labelsdata
+      //print('5555555555555555555555555');
+      print(xd);
+      //print('5555555555555555555555555');
+      for (var label in Labels.labelsdata) {
+        print(label.id);
+        print(label.content);
+      }
+
+        tarea.label = LabelsCubit().state.selected;
+    
+      tarea.label = Labelsbyid(xd);
+      
       Tarea.tareasdata.add(tarea);
     }
   }
-
-  // Imprimir lista de tareas después de agregar las tareas
-  print('Lista de tareas después de agregar las tareas:');
-  Tarea.tareasdata.forEach((tarea) => print(tarea.id));
-  
   emit(TareaState(tareas: Tarea.tareasdata));
+}
+
+String Labelsbyid( int id){
+  print('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO');
+  print(id);
+  print('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO');  
+  String label = '';
+  print(id);
+  //print("###########");	
+  
+  print('AQUI EMPIEZAAAAAAAAAAAAAAAAA');
+  for (var tarea in Labels.labelsdata) {
+    print(tarea.id);
+    print(tarea.content);
+    if(tarea.id==id){
+      
+      return tarea.content;
+    }
+    
+    //print(tarea.i
+    
+  }
+  print('AQUI TERMINAAAAAAAAAAAAAAAAA');
+  
+  return label;
 }
 
 
