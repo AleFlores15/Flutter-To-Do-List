@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 
 
 class Todo extends StatelessWidget {
+  
   final _tituloController = TextEditingController();
   final _fechaController = TextEditingController();
 
@@ -32,6 +33,7 @@ class Todo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BlocBuilder<LabelsCubit, LabelState>(
+              
               builder: (context, state) {
                 return Column(
                   children: [
@@ -68,6 +70,7 @@ class Todo extends StatelessWidget {
                   ),
 
                     DropdownButton<String>(
+                      
                       value: state.selected,
                       onChanged: (String? newValue) {
                         context

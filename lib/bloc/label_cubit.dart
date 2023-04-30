@@ -3,7 +3,7 @@ import 'label_state.dart';
 import 'package:flutter_to_do_list/services/labels_service.dart';
 
 class Labels{
-  static List <LabelProps> labelsdata=[ LabelProps(id: 0, content: 'label1')];
+  static List <LabelProps> labelsdata=[ LabelProps(id: 0, content: 'Sin etiqueta')];
   
 }
 
