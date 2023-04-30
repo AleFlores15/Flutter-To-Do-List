@@ -36,7 +36,8 @@ class LabelsForm extends StatelessWidget {
                     return ListView.builder(
                       itemCount: state.labels.length,
                       itemBuilder: (context, index) {
-                        String label = state.labels[index].content;
+                        LabelProps label = state.labels[index];
+                        label.content = state.labels[index].content;
                         return Row(
                           children: [
                             const SizedBox(height: 100),
@@ -56,7 +57,7 @@ class LabelsForm extends StatelessWidget {
                                   i=index;
                                   label1=text;
                                 },
-                                controller: TextEditingController(text: label), textDirection: TextDirection.ltr,
+                                controller: TextEditingController(text: label.content), textDirection: TextDirection.ltr,
                         
                               ),
                             ),
@@ -66,6 +67,7 @@ class LabelsForm extends StatelessWidget {
                             IconButton(
                               onPressed: () {
                                 context.read<LabelsCubit>().deleteSelected(label);
+                                
                               },
                               icon:  const Icon(Icons.delete),
                             ),
@@ -107,9 +109,6 @@ class LabelsForm extends StatelessWidget {
 
               onPressed: (){
                 LabelProps label = LabelProps(id:1 ,content:'');
-                //label.content = '';
-                //label.id = context.read<LabelsCubit>().state.labels.length;
-                //context.read<LabelsCubit>().addLabel(label);
                 BlocProvider.of<LabelsCubit>(context).postLabels(label.content);
               }, 
               icon: const Icon(Icons.new_label), 

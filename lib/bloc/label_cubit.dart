@@ -4,6 +4,7 @@ import 'package:flutter_to_do_list/services/labels_service.dart';
 
 class Labels{
   static List <LabelProps> labelsdata=[ LabelProps(id: 0, content: 'Sin etiqueta')];
+  static List <LabelProps> repeatedlabels=[];
   
 }
 
@@ -15,10 +16,11 @@ class LabelsCubit extends Cubit<LabelState>{
     emit(LabelState(labels: Labels.labelsdata, selected: label));
   }
 
-  void deleteSelected(String label){
-    print('por queeeeeeeeeeeeeeeee');
+  void deleteSelected(LabelProps label){
+    
+    Labels.repeatedlabels.add(label);
     Labels.labelsdata.remove(label);
-    print(Labels.labelsdata);
+    print(label);
     emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0].content));
   }
 
