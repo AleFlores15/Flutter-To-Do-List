@@ -67,7 +67,6 @@ class LabelsForm extends StatelessWidget {
                             IconButton(
                               onPressed: () {
                                 context.read<LabelsCubit>().deleteSelected(label);
-                                
                               },
                               icon:  const Icon(Icons.delete),
                             ),
@@ -86,7 +85,7 @@ class LabelsForm extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: (){
                 context.read<LabelsCubit>().updateLabel(i, label1);
-                BlocProvider.of<LabelsCubit>(context).putLabels(i,label1);
+                BlocProvider.of<LabelsCubit>(context).putLabels(findLabelId(label1,Labels.labelsdata),label1);
               }, 
               icon: const Icon(Icons.save), 
               label: const Text('Guardar')
@@ -109,6 +108,7 @@ class LabelsForm extends StatelessWidget {
 
               onPressed: (){
                 LabelProps label = LabelProps(id:1 ,content:'');
+                context.read<LabelsCubit>().addLabel(LabelProps(id: 0, content: ''));
                 BlocProvider.of<LabelsCubit>(context).postLabels(label.content);
               }, 
               icon: const Icon(Icons.new_label), 
@@ -119,4 +119,13 @@ class LabelsForm extends StatelessWidget {
       ),
     );
   }
+
+  int findLabelId(String content, List<LabelProps> labels) {
+  for (var i = 0; i < labels.length; i++) {
+    if (labels[i].content == content) {
+      return labels[i].id;
+    }
+  }
+  return 3;
+}
 }

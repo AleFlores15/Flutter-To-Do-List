@@ -117,6 +117,18 @@ String Labelsbyid( int id){
   
   return label;
 }
+ Future <void> putTasks(int id, bool completed) async{
+
+     emit(state.copyWith(status: TareaStatus.loading));
+     try{
+       await tareasService.updateTask(id, completed);
+       emit(state.copyWith(status: TareaStatus.success));
+     } on Exception catch(e){
+       print(e);
+       emit(state.copyWith(status: TareaStatus.failure));
+     }
+  
+   }
 
 
 

@@ -42,7 +42,8 @@ class tareasService {
       body: jsonEncode({
         'description': desc,
         'date': date,
-        'labelIds': [id]
+        'labelIds': [id],
+        'completed': false,
       }),
 
     );
@@ -55,5 +56,28 @@ class tareasService {
     }
 
   }
+
+  
+
+    static Future<taskResponse> updateTask( int index, bool completed) async{
+
+       var response = await http.put(
+       Uri.parse(urlBase + '/api/v1/task/${index}'),
+       headers: {
+         'Content-Type': 'application/json',
+         'Accept': 'application/json',
+         'Authorization': 'Bearer ' + authToken,
+       },
+       body: jsonEncode({'completed': completed}),
+     );
+
+     if (response.statusCode == 200) {
+       return taskResponse.fromJson(json.decode(response.body));
+     } else {
+       throw Exception('Error al enviar tarea');
+     }
+
+
+   }
 }
 

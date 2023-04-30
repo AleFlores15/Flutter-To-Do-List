@@ -4,7 +4,7 @@ import 'package:flutter_to_do_list/services/labels_service.dart';
 
 class Labels{
   static List <LabelProps> labelsdata=[ LabelProps(id: 0, content: 'Sin etiqueta')];
-  static List <LabelProps> repeatedlabels=[];
+  static List <LabelProps> deletedlabels=[];
   
 }
 
@@ -18,7 +18,7 @@ class LabelsCubit extends Cubit<LabelState>{
 
   void deleteSelected(LabelProps label){
     
-    Labels.repeatedlabels.add(label);
+    Labels.deletedlabels.add(label);
     Labels.labelsdata.remove(label);
     print(label);
     emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0].content));
@@ -34,10 +34,7 @@ class LabelsCubit extends Cubit<LabelState>{
     emit(LabelState(labels: Labels.labelsdata, selected: newLabel));
     updateSelected(newLabel);
   }
-  void saveLabels (){
-    Labels.labelsdata = state.labels;
-    emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0].content));
-  }
+
 
   Future <void> getLabels() async{
     emit(state.copyWith(status: LabelStatus.loading));
@@ -80,7 +77,8 @@ class LabelsCubit extends Cubit<LabelState>{
     for(var labelJson in labelsJson){
       int id = labelJson['labelId'];
       bool existe = Labels.labelsdata.any((label) => label.id == id);
-      if(!existe){
+      bool estaBorrado = Labels.deletedlabels.any((label) => label.id == id);
+      if(!existe && !estaBorrado){
         LabelProps label = LabelProps(id: id, content: labelJson['name']);
         Labels.labelsdata.add(label);
       }

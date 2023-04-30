@@ -122,18 +122,13 @@ Widget contenido(BuildContext context,Tareas tarea, int index) {
               const SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () {
-                
-                context.read<TareasCubit>().updateTarea(tarea,index);
+                !tarea.completado;
               },
+
               child: Text(tarea.completado ? 'Completado' : 'No completado'),
             ),
           ],
         );
 
 }
-      //  IconButton(
-      //    onPressed: () {
-      //     context.read<TareasCubit>().deleteSelected(label);
-      //    },
-      //    icon: Icon(Icons.delete),
-      //  ),
+  
