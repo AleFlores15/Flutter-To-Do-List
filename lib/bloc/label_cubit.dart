@@ -20,7 +20,6 @@ class LabelsCubit extends Cubit<LabelState>{
     
     Labels.deletedlabels.add(label);
     Labels.labelsdata.remove(label);
-    print(label);
     emit(LabelState(labels: Labels.labelsdata, selected: Labels.labelsdata[0].content));
   }
 

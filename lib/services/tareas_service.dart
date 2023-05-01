@@ -6,7 +6,7 @@ import 'package:flutter_to_do_list/dto/auth_response.dart';
 import 'package:flutter_to_do_list/dto/task_response.dart';
 import 'package:flutter_to_do_list/services/login_service.dart';
 import 'package:http/http.dart' as http;
-String urlBase= 'http://localhost:9999';
+String urlBase= 'https://aleflores15-orange-telegram-jpw67qg7gqpcqwp9-9999.preview.app.github.dev';
 var authToken = LoginService.responseBody['response']['authToken'];
 class tareasService {
   static Future<ApiResponse> getTareas() async {
@@ -59,7 +59,7 @@ class tareasService {
 
   
 
-    static Future<taskResponse> updateTask( int index, bool completed) async{
+    static Future<taskResponse> updateTask( int index, String desc, String date, int idLabel, bool completed) async{
 
        var response = await http.put(
        Uri.parse(urlBase + '/api/v1/task/${index}'),
@@ -68,8 +68,10 @@ class tareasService {
          'Accept': 'application/json',
          'Authorization': 'Bearer ' + authToken,
        },
-       body: jsonEncode({'completed': completed}),
+       
+       body: jsonEncode({ 'description': desc,'date': date, 'labelIds':[idLabel] ,  'completed': !completed}),
      );
+     print(completed);
 
      if (response.statusCode == 200) {
        return taskResponse.fromJson(json.decode(response.body));
@@ -79,5 +81,6 @@ class tareasService {
 
 
    }
+   
 }
 

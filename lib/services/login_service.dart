@@ -4,7 +4,7 @@ import 'package:flutter_to_do_list/dto/api_response.dart';
 import 'package:flutter_to_do_list/dto/auth_response.dart';
 import 'package:http/http.dart' as http;
 
-const String urlBase= 'http://localhost:9999';
+const String urlBase= 'https://aleflores15-orange-telegram-jpw67qg7gqpcqwp9-9999.preview.app.github.dev';
 
 class LoginService {
   static Map<String, dynamic> responseBody = {}; // Cambia el tipo de la variable

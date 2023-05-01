@@ -26,8 +26,10 @@ class LabelsForm extends StatelessWidget {
             Expanded(
               child: BlocBuilder<LabelsCubit, LabelState>(
                 builder: (context, state) {
+                  if(state.status== LabelStatus.loading){
+                    return const Center(child: CircularProgressIndicator());
+                  } 
 
-                  
                   if (state.labels.isEmpty) {
 
                     return Text('No hay etiquetas');
@@ -75,7 +77,8 @@ class LabelsForm extends StatelessWidget {
                       },
                     );
                     
-                  }
+                  };              
+                  
                 },
               )
             ),

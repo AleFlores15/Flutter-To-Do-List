@@ -96,15 +96,8 @@ class Todo extends StatelessWidget {
                           tarea.completado=false;
                           
                           _tituloController.clear();
-                          _fechaController.clear();
-                          print('hola?');
-                          print(state.selected);
-                          
-                          BlocProvider.of<TareasCubit>(context).postTasks(titulo, fecha, id);
-
-
-                          
-                          print('k');
+                          _fechaController.clear();                         
+                          BlocProvider.of<TareasCubit>(context).postTasks(titulo, fecha, id);                       
                           Navigator.push(context,MaterialPageRoute(builder: (context) => Todolist()));
                         },
                         icon: const Icon(Icons.add),

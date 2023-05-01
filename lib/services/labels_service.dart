@@ -6,7 +6,7 @@ import 'package:flutter_to_do_list/dto/auth_response.dart';
 import 'package:flutter_to_do_list/dto/label_response.dart';
 import 'package:flutter_to_do_list/services/login_service.dart';
 import 'package:http/http.dart' as http;
-String urlBase= 'http://localhost:9999';
+String urlBase= 'https://aleflores15-orange-telegram-jpw67qg7gqpcqwp9-9999.preview.app.github.dev';
 var authToken = LoginService.responseBody['response']['authToken'];
 class labelsService {
   static Future<ApiResponse> getLabels() async {

@@ -4,6 +4,7 @@ import 'package:flutter_to_do_list/bloc/tarea_cubit.dart';
 import 'package:flutter_to_do_list/screens/todoform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 //bool isCalled = false;
 
 
@@ -27,70 +28,28 @@ class Todolist extends StatelessWidget {
                   if(state.status== TareaStatus.loading){
                     return const Center(child: CircularProgressIndicator());
                   }else if(state.status== TareaStatus.success){
-                    //BlocProvider.of<LabelsCubit>(context).getLabels();
-                 if (state.tareas.isEmpty) {
-                    return const Center(child: Text('No hay tareas'));
-                  } else {
-                    return ListView.builder(
                     
-                      itemCount: state.tareas.length,
-                      itemBuilder: (context, index) {
-                        
-                        Tareas tarea = state.tareas[index];
-                        return Row(
-                          children: [
-                            const SizedBox(height: 100),
-                            Expanded(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                      if (state.tareas.isEmpty) {
+                          return const Center(child: Text('No hay tareas'));
+                        } else {
+                          return ListView.builder(
+                          
+                            itemCount: state.tareas.length,
+                            itemBuilder: (context, index) {
+                              
+                              Tareas tarea = state.tareas[index];
+                              return Row(
+                                children: [
+                                  const SizedBox(height: 100),
+                                  Expanded(
+                                    child: Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
 
-                                  // abajo se llama al widget contenido que
-                                  //contiene todo lo de la tarjeta (tarea)
+                                        // abajo se llama al widget contenido que
+                                        //contiene todo lo de la tarjeta (tarea)
 
-                                  child: contenido(context,tarea, index)
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-
-                      },
-                    );
-                    
-                  }
-                   
-                    
-                  }else if(state.status== TareaStatus.init){
-                    
-                    
-                      return const Center(child: Text('No hay tareas'));
-                      
-                    
-                    
-                  }else{
-                    return const Center(child: Text('Error'));
-                  }
-                  
- 
-                },
-              )
-            ),
-
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        //BlocProvider.of<LabelsCubit>(context).getLabels();
-        Navigator.push(context,MaterialPageRoute(builder: (context) => Todo() ));},
-      child: Icon(Icons.add),),
-    );
-  }
-}
-
-Widget contenido(BuildContext context,Tareas tarea, int index) {
-  return Column(
+                                        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -122,13 +81,63 @@ Widget contenido(BuildContext context,Tareas tarea, int index) {
               const SizedBox(height: 8.0),
             ElevatedButton(
               onPressed: () {
-                !tarea.completado;
+                context.read<TareasCubit>().updateTarea(tarea,tarea.id);
+                BlocProvider.of<TareasCubit>(context).putTasks(tarea.id, tarea.nombre, tarea.fecha, findTaskId(tarea.label, Tarea.tareasdata), tarea.completado);
+                           
               },
 
               child: Text(tarea.completado ? 'Completado' : 'No completado'),
             ),
           ],
-        );
+        )
 
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+
+                            },
+                          );
+                          
+                        }
+                   
+                    
+                  }else if(state.status== TareaStatus.init){
+                    
+                   return const Center(child: CircularProgressIndicator());
+                      
+                    
+                    
+                  }else{
+                    return const Center(child: Text('Error'));
+                  }
+                  
+ 
+                },
+              )
+            ),
+
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        //BlocProvider.of<LabelsCubit>(context).getLabels();
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Todo() ));},
+      child: Icon(Icons.add),),
+    );
+  }
 }
+
+
+  int findTaskId(String content, List<Tareas> labels) {
+    for (var i = 0; i < labels.length; i++) {
+      if (labels[i].label == content) {
+        return labels[i].id;
+      }
+    }
+    return 3;
+  }
+
   
